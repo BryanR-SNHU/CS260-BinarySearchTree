@@ -139,11 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bid.cpp" />
     <ClCompile Include="BinarySearchTree.cpp" />
+    <ClCompile Include="BinarySearchTreeApp.cpp" />
     <ClCompile Include="CSVparser\CSVparser.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="StaticMethods.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bid.hpp" />
+    <ClInclude Include="BinarySearchTree.hpp" />
     <ClInclude Include="CSVparser\CSVparser.hpp" />
+    <ClInclude Include="Node.hpp" />
+    <ClInclude Include="StaticMethods.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
