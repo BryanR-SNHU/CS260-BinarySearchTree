@@ -1,5 +1,9 @@
 #include "BinarySearchTree.hpp"
 #include "StaticMethods.hpp"
+#include <sstream>
+#include <fstream>
+#include <algorithm>
+#include <iostream>
 
 /**
  * Default constructor
@@ -44,6 +48,73 @@ void BinarySearchTree::InOrder() {
 	inOrder(node->left);
 	BST::displayBid(*node->bid);
 	inOrder(node->right);
+}
+
+/**
+* A function to escape quotes in bid titles.
+* @param source: The source string.
+* @return A copy of the source string with quotes escaped.
+*/
+std::string BinarySearchTree::fixQuotes(std::string source)
+{
+	std::string dest;
+
+	for (size_t i = 0; i < strlen(source.c_str()); i++)
+	{
+		// If the current character is a ", replace it with a \" in the destination.
+		// Otherwise, just copy the character.
+		if (source.c_str()[i] == '"')
+		{
+			dest.push_back('\\');
+			dest.push_back('"');
+		}
+		else
+		{
+			dest.push_back(source.c_str()[i]);
+		}
+	}
+
+	return dest;
+}
+
+/**
+* Recursively prints out each of the bids to a JSON array in order of ID (public method).
+*/
+void BinarySearchTree::InOrderJSON()
+{
+	Node* node = this->root;
+
+	if (node == 0) {
+		return;
+	}
+
+	std::stringstream buffer; // A stream to hold the contents of the JSON file.
+	buffer << "{\"bids\":[" << std::endl;
+
+	// Recursively run the method down the left half of the tree.
+	inOrderJSON(node->left, &buffer);
+
+	std::string altTitle = fixQuotes(node->bid->title);
+
+	// Print the root node bid as a JSON object.
+	buffer << "    {\"id\":\"" << node->bid->bidId << "\",";
+	buffer << "\"title\":\"" << altTitle << "\",";
+	buffer << "\"amount\":\"" << node->bid->amount << "\",";
+	buffer << "\"fund\":\"" << node->bid->fund << "\"}," << std::endl;
+	
+	// Recursively run the method down the right half of the tree.
+	inOrderJSON(node->right, &buffer);
+
+	std::stringstream fixedBuffer;
+	fixedBuffer << buffer.str().substr(0, strlen(buffer.str().c_str()) - 2); // Get a sub string from the buffer to remove the trailing comma. Trailing commas are not allowed in JSON.
+	
+	fixedBuffer << std::endl << "]}"; // Restore the last newline and close the array.
+
+	// Write the contents of the fixed stream to a file.
+	std::ofstream file;
+	file.open("bids.json");
+	file << fixedBuffer.str();
+	file.close();
 }
 /**
  * Insert a bid
@@ -272,7 +343,31 @@ void BinarySearchTree::inOrder(Node* node) {
 }
 
 /**
-* Get size of tree in nodes.
+* Recursively prints out each of the bids to a JSON array in order of ID (private method).
+* @param node: The node to visit.
+* @param buffer: The stringstream to print to.
+*/
+void BinarySearchTree::inOrderJSON(Node* node, std::stringstream* buffer)
+{
+	if (node == 0) {
+		return;
+	}
+
+	inOrderJSON(node->left, buffer);
+
+	std::string altTitle = fixQuotes(node->bid->title);
+
+	// Write the current bid to the stream as a JSON object.
+	*buffer << "    {\"id\":\"" << node->bid->bidId << "\",";
+	*buffer << "\"title\":\"" << altTitle << "\",";
+	*buffer << "\"amount\":\"" << node->bid->amount << "\",";
+	*buffer << "\"fund\":\"" << node->bid->fund << "\"}," << std::endl;
+
+	inOrderJSON(node->right, buffer);
+}
+
+/**
+* Get size of tree in nodes. Private version.
 * @param node: The node to visit.
 * @return The number of nodes as an integer.
 */
@@ -292,8 +387,7 @@ int BinarySearchTree::size(Node* node) {
 }
 
 /**
-* Get size of tree in nodes.
-* @param node: The node to visit.
+* Get size of tree in nodes. Public version.
 * @return The number of nodes as an integer.
 */
 int BinarySearchTree::Size() {

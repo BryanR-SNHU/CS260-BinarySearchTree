@@ -53,6 +53,7 @@ int main(int argc, char* argv[]) {
 		cout << "  2. Display All Bids" << endl;
 		cout << "  3. Find Bid" << endl;
 		cout << "  4. Remove Bid" << endl;
+		cout << "  5. Export to JSON" << endl;
 		cout << "  9. Exit" << endl;
 		cout << "Enter choice: ";
 		cin >> choice;
@@ -102,7 +103,12 @@ int main(int argc, char* argv[]) {
 		case 4:
 			bst->Remove(bidKey);
 			break;
+		
+		case 5:
+			bst->InOrderJSON();
+			break;
 		}
+
 	}
 
 	cout << "Good bye." << endl;

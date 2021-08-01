@@ -13,7 +13,9 @@ private:
 
 	void addNode(Node* node, Bid bid);
 	void inOrder(Node* node);
+	void inOrderJSON(Node* node, std::stringstream* buffer);
 	Node* removeNode(Node* node, std::string bidId);
+	std::string fixQuotes(std::string source);
 	int size(Node* node);
 	void deleteAll(Node* node);
 
@@ -21,6 +23,7 @@ public:
 	BinarySearchTree();
 	virtual ~BinarySearchTree();
 	void InOrder();
+	void InOrderJSON();
 	void Insert(Bid bid);
 	void Remove(std::string bidId);
 	Bid Search(std::string bidId);
