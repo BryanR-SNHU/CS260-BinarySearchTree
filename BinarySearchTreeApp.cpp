@@ -107,6 +107,9 @@ int main(int argc, char* argv[]) {
 		case 5:
 			bst->InOrderJSON();
 			break;
+		
+		default:
+			cout << "Invalid option." << std::endl;
 		}
 
 	}
