@@ -47,6 +47,7 @@ void BinarySearchTree::InOrder() {
 }
 /**
  * Insert a bid
+ * @param bid: The bid to insert.
  */
 void BinarySearchTree::Insert(Bid bid) {
 	// Check if the root is empty. If it is, insert the bid as the root.
@@ -90,6 +91,7 @@ void BinarySearchTree::Insert(Bid bid) {
 
 /**
  * Remove a bid
+ * @param bidId: The id of the bid to remove.
  */
 void BinarySearchTree::Remove(std::string bidId) {
 	// Start at the root, setting the parent to NULL.
@@ -204,6 +206,8 @@ void BinarySearchTree::Remove(std::string bidId) {
 
 /**
  * Search for a bid
+ * @param bidId: Id to search for.
+ * @return If the bid exists, it is returned. Otherwise, an empty bid is returned.
  */
 Bid BinarySearchTree::Search(std::string bidId) {
 	// Start at the root.
@@ -251,6 +255,11 @@ void BinarySearchTree::addNode(Node* node, Bid bid) {
 	node->left = 0;
 	node->right = 0;
 }
+
+/**
+* Print out info about every bid in the tree, in order.
+* @param node: The node to visit.
+*/
 void BinarySearchTree::inOrder(Node* node) {
 	// Recursively visit each node in the tree, printing the bid's info.
 	if (node == 0) {
@@ -261,6 +270,12 @@ void BinarySearchTree::inOrder(Node* node) {
 	BST::displayBid(*node->bid);
 	inOrder(node->right);
 }
+
+/**
+* Get size of tree in nodes.
+* @param node: The node to visit.
+* @return The number of nodes as an integer.
+*/
 int BinarySearchTree::size(Node* node) {
 	// Count the number of nodes in the tree by visiting each one and incrementing a counter.
 	int count = 0;
@@ -275,6 +290,12 @@ int BinarySearchTree::size(Node* node) {
 
 	return count;
 }
+
+/**
+* Get size of tree in nodes.
+* @param node: The node to visit.
+* @return The number of nodes as an integer.
+*/
 int BinarySearchTree::Size() {
 	// Count the number of nodes in the tree by visiting each one and incrementing a counter.
 	Node* node = this->root;

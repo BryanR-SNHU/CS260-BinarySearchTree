@@ -8,7 +8,8 @@
  *
  * credit: http://stackoverflow.com/a/24875936
  *
- * @param ch The character to strip out
+ * @param ch: The character to strip out
+ * @return The number in the string in the form of a double.
  */
 double BST::strToDouble(std::string str, char ch)
 {
@@ -23,7 +24,7 @@ double BST::strToDouble(std::string str, char ch)
 /**
  * Display the bid information to the console (std::out)
  *
- * @param bid struct containing the bid info
+ * @param bid: struct containing the bid info.
  */
 void BST::displayBid(Bid bid)
 {
@@ -35,8 +36,8 @@ void BST::displayBid(Bid bid)
 /**
  * Load a CSV file containing bids into a container
  *
- * @param csvPath the path to the CSV file to load
- * @return a container holding all the bids read
+ * @param csvPath: The path to the CSV file to load
+ * @return A container holding all the bids read
  */
 void BST::loadBids(std::string csvPath, BinarySearchTree* bst) 
 {
